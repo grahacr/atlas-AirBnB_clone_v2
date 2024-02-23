@@ -125,27 +125,28 @@ class HBNBCommand(cmd.Cmd):
             pass
         my_class = HBNBCommand.classes.get(class_name)
         param_list = arg_list[1:]
+        parameters = {}
         for param in param_list:
             key_value = param.split('=')
             if len(key_value) <= 2:
-                continue
+                pass
             key, value = key_value
-            if value.startswith('"'):
-                escape = value[0]
-                for char in value[1:]:
+            if value.startswith('"') and value.endswith('"'):
+                escape = value[1:-1]
+                for char in escape[1:]:
                     if char == '"':
                         escape += '\\"'
                     else:
                         escape += char
-                value = escape
-                value = value.replace(" ", "_")
-            if "." in param or isinstance(param, int):
-                return True
-            return False
-        new_instance = my_class(param_list)
+                value = escape.replace(" ", "_")
+            parameters[key] = value
+        new_instance = my_class(parameters)
+        print(new_instance)
         storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
+        return True
+    
 
     def help_create(self):
         """ Help information for the create method """
