@@ -136,12 +136,14 @@ class HBNBCommand(cmd.Cmd):
                 value = value[1:-1].replace('"', '\\"')
                 value = value.replace(" ", "_")
                 parameters[key] = value
+            elif "." in value:
+                value = float(value)
+            else:
+                value = int(value)
         for key, value in parameters.items():
             setattr(instance, key, value)
+        storage.new(instance)
         storage.save()
-        instance.save()
-        print(instance.id)
-        return True
 
     def help_create(self):
         """ Help information for the create method """
