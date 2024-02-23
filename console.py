@@ -136,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
             if value.startswith('"') and value.endswith('"'):
                 value = value[1:-1].replace('"', '\\"')
                 value = value.replace(" ", "_")
-            parameters[key] = value
+                parameters[key] = value
         print(parameters)
         new_instance = my_class(parameters)
         print(new_instance)
