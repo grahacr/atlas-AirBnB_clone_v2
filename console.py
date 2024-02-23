@@ -128,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
         parameters = {}
         for param in param_list:
             key_value = param.split('=')
-            if len(key_value) <= 2:
+            if len(key_value) != 2:
                 pass
             key, value = key_value
             if value.startswith('"') and value.endswith('"'):
@@ -140,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
                         escape += char
                 value = escape.replace(" ", "_")
             parameters[key] = value
+            print(parameters)
         new_instance = my_class(parameters)
         print(new_instance)
         storage.save()
