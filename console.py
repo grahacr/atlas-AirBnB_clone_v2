@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 value = escape.replace(" ", "_")
             parameters[key] = value
             print(parameters)
-        new_instance = my_class(parameters)
+        new_instance = my_class(**parameters)
         print(new_instance)
         storage.save()
         new_instance.save()
