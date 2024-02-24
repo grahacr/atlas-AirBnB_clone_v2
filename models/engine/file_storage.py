@@ -44,7 +44,7 @@ class FileStorage:
             return
         else:
             # Get the class name, and the ID as a key value.
-            keyvalue = obj.__class.__name__ +"."+ obj.id
+            keyvalue = type(obj).__name__ + "." + obj.id
             # Check if it exists.
             if keyvalue in FileStorage.__objects:
                 #If it does, delete it.
