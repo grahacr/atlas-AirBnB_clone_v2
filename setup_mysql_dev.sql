@@ -13,5 +13,6 @@ CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
 USE hbnb_dev_db;
 -- Grant the user privileges to our DB only. 
 GRANT ALL PRIVILEGES ON hbnb_dev_db.* TO 'hbnb_dev'@'localhost';
+GRANT SELECT ON performance_schema.* TO 'hbnb_dev'@'localhost';
 -- Update the user privileges.
 FLUSH PRIVILEGES;
