@@ -143,8 +143,8 @@ class HBNBCommand(cmd.Cmd):
             parameters[key] = value
         for key, value in parameters.items():
             setattr(instance, key, value)
+        storage.new(instance)
         storage.save()
-        instance.save()
         print(instance.id)
         return True
 
