@@ -140,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
                 value = float(value)
             else:
                 value = int(value)
+            parameters[key] = value
         for key, value in parameters.items():
             setattr(instance, key, value)
         storage.save()
