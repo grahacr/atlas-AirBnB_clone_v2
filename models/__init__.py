@@ -3,13 +3,9 @@
 from models.engine.file_storage import FileStorage
 import os
 
-if os.HBNB_TYPE_STORAGE == 'db':
-    import dbstorage
-    dbstorage.new()
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    storage = DBStorage()
     storage.reload()
 else:
-    import filestorage:
-        
-
-storage = FileStorage()
-storage.reload()
+    storage = FileStorage()
+    storage.reload()
