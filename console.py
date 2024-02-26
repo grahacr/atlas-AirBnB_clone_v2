@@ -120,28 +120,47 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return False
         class_name = arg_list[0]
+        if class_name not in HBNBCommand.classes:
+            print("** class doesn't exist**")
+            return False
+        #my_class = HBNBCommand.classes[class_name]()
         param_list = arg_list[1:]
         parameters = {}
-        if class_name not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return False
-        my_class = HBNBCommand.classes[class_name]()
-        storage.save()
+        name_provided = False
+
         for param in param_list:
-            key, value = param.split('=')
-            if value.startswith('"') and value.endswith('"'):
-                value = value[1:-1].replace('"', '\\"')
-                value = value.replace(" ", "_")
-            elif "." in value:
-                value = float(value)
-            else:
-                value = int(value)
-            parameters[key] = value
+            if '=' not in param and not name_provided:
+                parameters['name'] = param
+                name_provided = True
+                continue
+            try:
+                key, value = param.split('=')
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1].replace('_', ' ')
+                elif "." in value:
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        continue
+                else:
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        continue
+                parameters[key] = value
+            except ValueError:
+                continue
+
+        instance = HBNBCommand.classes[class_name]()
         for key, value in parameters.items():
-            setattr(my_class, key, value)
-        storage.new(my_class)
-        storage.save()
-        print(my_class.id)
+            setattr(instance, key, value)
+        instance.save()
+        print(instance.id)
+       # for key, value in parameters.items():
+       #     setattr(my_class, key, value)
+       # storage.new(my_class)
+       # storage.save()
+       # print(my_class.id)
 
     def help_create(self):
         """ Help information for the create method """
