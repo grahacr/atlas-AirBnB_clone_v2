@@ -23,13 +23,12 @@ class DBStorage:
     def __init__(self):
         user = os.getenv('HBNB_MYSQL_USER')
         password = os.getenv('HBNB_MYSQL_PWD')
-        host = os.getenv('HBNB_MYSQL_HOST')
+        host = os.getenv('HBNB_MYSQL_HOST', 'localhost')
         db = os.getenv('HBNB_MYSQL_DB')
 
         self.__engine = create_engine(f"mysql+mysqldb://{user}:{password}@{host}/{db}", pool_pre_ping=True)
-        metadata = MetaData(self.__engine)
         if os.getenv('HBNB_ENV') == 'test':
-            metadata.drop_all()
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         results ={}
@@ -60,3 +59,4 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         self.__sessionmaker = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(self.__sessionmaker)
+        self.__session = session()
