@@ -122,8 +122,8 @@ class HBNBCommand(cmd.Cmd):
         class_name = arg_list[0]
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
-            pass
-        my_class = HBNBCommand.classes.get(class_name)
+            return False
+        my_class = HBNBCommand.classes[class_name]
         instance = my_class()
         param_list = arg_list[1:]
         parameters = {}
@@ -135,7 +135,6 @@ class HBNBCommand(cmd.Cmd):
             if value.startswith('"') and value.endswith('"'):
                 value = value[1:-1].replace('"', '\\"')
                 value = value.replace(" ", "_")
-                parameters[key] = value
             elif "." in value:
                 value = float(value)
             else:
@@ -143,8 +142,7 @@ class HBNBCommand(cmd.Cmd):
             parameters[key] = value
         for key, value in parameters.items():
             setattr(instance, key, value)
-        storage.new(instance)
-        storage.save()
+        instance.save()
         print(instance.id)
         return True
 
