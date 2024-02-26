@@ -2,7 +2,7 @@
 """
 """
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import sessionmaker, scoped_session, declarative_base
+from sqlalchemy.orm import sessionmaker, scoped_session
 import sys
 from sqlalchemy import create_engine, MetaData
 import os
@@ -12,8 +12,8 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from models.base_model import BaseModel, Base
 
-Base = declarative_base()
 
 class DBStorage:
     __engine: None
@@ -54,7 +54,6 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-
         Base.metadata.create_all(self.__engine)
         self.__sessionmaker = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(self.__sessionmaker)
