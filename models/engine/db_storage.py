@@ -6,6 +6,12 @@ from sqlalchemy.orm import sessionmaker, scoped_session, declarative_base
 import sys
 from sqlalchemy import create_engine, MetaData
 import os
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 Base = declarative_base()
 
@@ -48,12 +54,7 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
+
         Base.metadata.create_all(self.__engine)
         self.__sessionmaker = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(self.__sessionmaker)
