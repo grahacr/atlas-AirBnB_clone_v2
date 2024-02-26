@@ -8,7 +8,7 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
-    def all(self, cls = None):
+    def all(self, cls=None):
         # If it's none, return all
         if cls is None:
             return FileStorage.__objects
