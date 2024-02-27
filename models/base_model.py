@@ -17,6 +17,7 @@ class BaseModel:
     updated_at = Column(DateTime, default=dt.utcnow(), nullable = False)
 
     def __init__(self, *args, **kwargs):
+        class_name = kwargs.pop('__class__', None)
         for key, value in kwargs.items():
             setattr(self, key, value)
         """Instatntiates a new model"""
@@ -25,12 +26,8 @@ class BaseModel:
             self.created_at = dt.now()
             self.updated_at = dt.now()
         else:
-            kwargs['updated_at'] = dt.strptime(kwargs['updated_at'],
-                                                    '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = dt.strptime(kwargs['created_at'],
-                                                    '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
-            self.__dict__.update(kwargs)
+            self.updated_at = dt.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            self.created_at = dt.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
 
     def __str__(self):
         """Returns a string representation of the instance"""
