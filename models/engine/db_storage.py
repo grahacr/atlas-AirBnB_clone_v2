@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
 """
+
 from sqlalchemy import Table, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, scoped_session
 import sys
@@ -12,11 +13,11 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from models.base_model import BaseModel, base
+from models.base_model import base
 
 class DBStorage:
-    __engine: None
-    __session: None
+    __engine = None
+    __session = None
     def __init__(self):
         user = os.getenv('HBNB_MYSQL_USER')
         password = os.getenv('HBNB_MYSQL_PWD')
@@ -54,5 +55,5 @@ class DBStorage:
 
     def reload(self):
         base.metadata.create_all(self.__engine)
-        self.__sessionmaker = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(self.__sessionmaker)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        self.__session = scoped_session(session_factory)
