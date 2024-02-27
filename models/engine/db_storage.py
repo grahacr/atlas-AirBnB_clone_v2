@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 """
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Table, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, scoped_session
 import sys
 from sqlalchemy import create_engine, MetaData
@@ -14,7 +14,6 @@ from models.amenity import Amenity
 from models.review import Review
 from models.base_model import BaseModel, base
 
-
 class DBStorage:
     __engine: None
     __session: None
@@ -26,7 +25,7 @@ class DBStorage:
 
         self.__engine = create_engine(f"mysql+mysqldb://{user}:{password}@{host}/{db}", pool_pre_ping=True)
         if os.getenv('HBNB_ENV') == 'test':
-            Base.metadata.drop_all(self.__engine)
+            base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         results ={}
@@ -54,6 +53,6 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        Base.metadata.create_all(self.__engine)
+        base.metadata.create_all(self.__engine)
         self.__sessionmaker = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(self.__sessionmaker)
