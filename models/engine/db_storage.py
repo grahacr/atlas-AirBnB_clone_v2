@@ -26,13 +26,14 @@ class DBStorage:
         host = os.getenv('HBNB_MYSQL_HOST', 'localhost')
         db = os.getenv('HBNB_MYSQL_DB')
 
-        self.__engine = create_engine(f"mysql+mysqldb://{user}:{password}@{host}/{db}",
-                                      pool_pre_ping=True)
+        self.__engine = create_engine(
+            f"mysql+mysqldb://{user}:{password}@{host}/{db}",
+            pool_pre_ping=True)
         if os.getenv('HBNB_ENV') == 'test':
             base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        results ={}
+        results = {}
         if cls is None:
             for model in [User, State, City, Amenity, Place, Review]:
                 objects = self.__session.query(model).all()
