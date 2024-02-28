@@ -16,6 +16,7 @@ from models.engine.db_storage import DBStorage
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
+
     # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
@@ -124,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist**")
             return False
-        #my_class = HBNBCommand.classes[class_name]()
         param_list = arg_list[1:]
         parameters = {}
         name_provided = False
@@ -157,11 +157,6 @@ class HBNBCommand(cmd.Cmd):
             setattr(instance, key, value)
         instance.save()
         print(instance.id)
-       # for key, value in parameters.items():
-       #     setattr(my_class, key, value)
-       # storage.new(my_class)
-       # storage.save()
-       # print(my_class.id)
 
     def help_create(self):
         """ Help information for the create method """
