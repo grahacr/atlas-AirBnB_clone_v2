@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """module for starting Flask app with 3 routes"""
 
 
