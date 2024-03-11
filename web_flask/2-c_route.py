@@ -23,6 +23,7 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def display_text(text):
+    """function for taking in text as part of route"""
     text = text.replace('_', ' ')
     return f'C {text}'
 
