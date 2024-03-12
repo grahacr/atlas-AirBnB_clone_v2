@@ -16,6 +16,7 @@ def teardown():
     """teardown function to close storage"""
     storage.close()
 
+
 @app.route('/states_list', strict_slashes=False)
 def state_list():
     """render html template for states"""
