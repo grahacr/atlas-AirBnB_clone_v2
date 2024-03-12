@@ -1,10 +1,7 @@
 #!/usr/bin/python3
 """
+module for displaying States
 """
-
-
-#!/usr/bin/python3
-"""module for starting Flask app with 3 routes"""
 
 
 from flask import Flask, render_template
@@ -16,6 +13,7 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown():
+    """teardown function to close storage"""
     storage.close()
 
 @app.route('/states_list', strict_slashes=False)
