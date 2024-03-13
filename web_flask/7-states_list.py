@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown():
+def teardown(exception):
     """teardown function to close storage"""
     storage.close()
 
@@ -20,7 +20,7 @@ def teardown():
 @app.route('/states_list', strict_slashes=False)
 def state_list():
     """render html template for states"""
-    states = storage.all("State")
+    states = storage.all("State").values()
     return render_template('7-states_list.html', states=states)
 
 
