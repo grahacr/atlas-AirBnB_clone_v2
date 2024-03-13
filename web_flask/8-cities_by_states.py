@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-module for displaying States
-"""
+""" module for displaying cities by state """
 
 
 from flask import Flask, render_template
